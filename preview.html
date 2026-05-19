@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AS Kharkoo Recorder | Professional Screen Capture</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="light-theme">
+  <div id="app">
+    <aside class="sidebar">
+      <div class="logo">
+        <span class="logo-icon">AS</span>
+        <span class="logo-text">Kharkoo</span>
+      </div>
+      <nav class="nav-menu">
+        <button class="nav-item active" id="nav-record">
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+            <circle cx="12" cy="12" r="5" />
+          </svg>
+          Record
+        </button>
+        <button class="nav-item" id="nav-library">
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <path
+              d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12zM10 5l8 4-8 4V5z" />
+          </svg>
+          Library
+        </button>
+        <button class="nav-item" id="nav-settings">
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <path
+              d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+          </svg>
+          Settings
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="avatar">S</div>
+          <div class="user-info">
+            <div class="user-name-row">
+              <span class="user-name">Professional</span>
+              <span class="pro-badge">PRO</span>
+            </div>
+            <span class="user-status">Online</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="content-header">
+        <h1>AS Kharkoo Recorder</h1>
+        <div class="header-actions">
+          <button class="btn btn-live" id="live-btn">
+            <span class="live-pulse"></span>
+            Go Live
+          </button>
+          <button class="btn btn-primary" id="start-btn">Start Recording</button>
+        </div>
+      </header>
+
+      <div id="record-section" class="section">
+        <section class="recording-dashboard">
+        <div class="preview-container">
+          <video id="preview" autoplay muted playsinline></video>
+          <div class="live-badge hidden" id="live-badge">LIVE</div>
+          <div class="preview-overlay" id="recording-status">
+            <span class="status-dot"></span>
+            <span class="status-text">Ready to record</span>
+            <span class="timer" id="timer">00:00:00</span>
+          </div>
+          <div class="cam-overlay-container" id="cam-container" style="display:none; bottom:20px; right:20px;">
+            <div class="cam-actions">
+              <button id="pip-webcam-mini" title="Always on Top">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="white"><path d="M19 11h-8v6h8v-6zm4 8V4.98C23 3.88 22.1 3 21 3H3c-1.1 0-2 .88-2 1.98V19c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2zm-2 .02H3V4.97h18v14.05z"/></svg>
+              </button>
+              <button id="close-webcam-mini" title="Close">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            </div>
+            <video id="webcam" autoplay muted playsinline></video>
+            <div class="resize-handle"></div>
+          </div>
+        </div>
+
+        <div class="controls-panel">
+          <div class="control-group">
+            <h3>Source Selection</h3>
+            <div class="control-options">
+              <button class="option-btn active" id="toggle-screen">
+                <svg viewBox="0 0 24 24" width="18" height="18">
+                  <path
+                    d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z" />
+                </svg>
+                Screen
+              </button>
+              <button class="option-btn" id="toggle-webcam">
+                <svg viewBox="0 0 24 24" width="18" height="18">
+                  <path
+                    d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2z" />
+                </svg>
+                Webcam
+              </button>
+              <button class="option-btn active" id="toggle-audio">
+                <svg viewBox="0 0 24 24" width="18" height="18">
+                  <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+                  <path
+                    d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
+                </svg>
+                Audio
+              </button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <h3>Webcam Settings</h3>
+            <div class="sub-control">
+              <label>Shape</label>
+              <div class="shape-toggle">
+                <button class="shape-btn active" id="shape-square">Square</button>
+                <button class="shape-btn" id="shape-circle">Circle</button>
+              </div>
+            </div>
+            <div class="sub-control">
+              <label>Opacity</label>
+              <input type="range" id="cam-opacity" min="10" max="100" value="100" class="range-input">
+            </div>
+            <div class="sub-control">
+              <label>Filter</label>
+              <select class="select-input" id="cam-filter">
+                <option value="none" selected>None</option>
+                <option value="grayscale">Grayscale</option>
+                <option value="sepia">Sepia</option>
+                <option value="brightness">Bright</option>
+                <option value="blur">Soft Blur</option>
+                <option value="chroma">Green Screen (Chroma)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <h3>Format & Quality</h3>
+            <select class="select-input" id="quality">
+              <option value="high">4K High (60 FPS)</option>
+              <option value="medium" selected>1080p (30 FPS)</option>
+              <option value="low">720p (24 FPS)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <h3>Export Format</h3>
+            <div class="format-chips">
+              <span class="chip active">MP4</span>
+              <span class="chip">WebM</span>
+              <span class="chip">MKV</span>
+            </div>
+          </div>
+        </div>
+        </section>
+      </div>
+
+      <div id="library-section" class="section hidden">
+        <section class="recent-recordings">
+          <div class="section-header">
+            <h2>Your Library</h2>
+            <p>Access and manage all your saved captures.</p>
+          </div>
+          <div class="recording-grid" id="recording-grid">
+            <div class="empty-state">No recordings yet. Start your first capture!</div>
+          </div>
+        </section>
+      </div>
+
+      <div id="settings-section" class="section hidden">
+        <section class="settings-panel">
+          <div class="section-header">
+            <h2>App Settings</h2>
+            <p>Configure your recording preferences and global themes.</p>
+          </div>
+          
+          <div class="settings-grid">
+            <div class="settings-card">
+              <h4>General</h4>
+              <div class="setting-item">
+                <label>Theme</label>
+                <select class="select-input" id="theme-select">
+                  <option value="light">Light Theme (Default)</option>
+                  <option value="dark">Dark Theme (Pro)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <h4>Advanced</h4>
+              <div class="setting-item">
+                <label>Auto-Save to Library</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" checked>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="recording-controls" class="floating-controls hidden">
+    <button class="control-btn stop-btn" id="stop-btn">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path d="M6 6h12v12H6z" />
+      </svg>
+    </button>
+    <button class="control-btn pause-btn" id="pause-btn">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="live-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Broadcast Settings</h2>
+        <button class="close-modal" id="close-live-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="platform-selector">
+          <button class="platform-btn" data-url="rtmp://a.rtmp.youtube.com/live2" title="YouTube">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.377.505 9.377.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </button>
+          <button class="platform-btn" data-url="rtmps://live-api-s.facebook.com:443/rtmp/" title="Facebook">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </button>
+          <button class="platform-btn" data-url="rtmp://live.twitch.tv/app/" title="Twitch">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#9146FF"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.428l-3 3v-3H6.857V1.714h13.714Z"/></svg>
+          </button>
+        </div>
+        <div class="setting-item">
+          <label>Stream RTMP URL</label>
+          <input type="text" id="stream-url" class="select-input" placeholder="rtmp://...">
+        </div>
+        <div class="setting-item">
+          <label>Stream Key</label>
+          <input type="password" id="stream-key" class="select-input" placeholder="xxxx-xxxx-xxxx-xxxx">
+        </div>
+        <div id="stream-error" class="error-msg hidden">Please enter a valid URL and Stream Key</div>
+        <button class="btn btn-live w-full" id="confirm-live">Start Broadcasting</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="countdown-overlay" class="countdown-overlay hidden">
+    <div class="countdown-number" id="countdown-number">3</div>
+  </div>
+
+  <script>
+    class KharkooRecorder {
+      constructor() {
+        this.stream = null;
+        this.audioStream = null;
+        this.webcamStream = null;
+        this.micStream = null;
+        this.audioCtx = null;
+        this.audioDest = null;
+        this.mediaRecorder = null;
+        this.recordedChunks = [];
+        this.startTime = null;
+        this.timerInterval = null;
+        this.isRecording = false;
+
+        // UI Elements
+        this.videoPreview = document.getElementById('preview');
+        this.webcamPreview = document.getElementById('webcam');
+        this.camContainer = document.getElementById('cam-container');
+        this.startBtn = document.getElementById('start-btn');
+        this.stopBtn = document.getElementById('stop-btn');
+        this.pauseBtn = document.getElementById('pause-btn');
+        this.floatingControls = document.getElementById('recording-controls');
+        this.timerDisplay = document.getElementById('timer');
+        this.statusText = document.querySelector('.status-text');
+        this.statusContainer = document.getElementById('recording-status');
+
+        // Toggles
+        this.screenToggle = document.getElementById('toggle-screen');
+        this.webcamToggle = document.getElementById('toggle-webcam');
+        this.audioToggle = document.getElementById('toggle-audio');
+
+        // Compositor Canvas
+        this.canvas = document.createElement('canvas');
+        this.ctx = this.canvas.getContext('2d');
+
+        // Webcam Settings UI
+        this.camFilter = document.getElementById('cam-filter');
+        this.camOpacity = document.getElementById('cam-opacity');
+        this.camSize = document.getElementById('cam-size');
+        this.shapeSquare = document.getElementById('shape-square');
+        this.shapeCircle = document.getElementById('shape-circle');
+
+        this.countdownOverlay = document.getElementById('countdown-overlay');
+        this.countdownNumber = document.getElementById('countdown-number');
+        this.themeSelect = document.getElementById('theme-select');
+
+        // Go Live UI
+        this.liveBtn = document.getElementById('live-btn');
+        this.liveModal = document.getElementById('live-modal');
+        this.closeLiveModal = document.getElementById('close-live-modal');
+        this.confirmLive = document.getElementById('confirm-live');
+        this.liveBadge = document.getElementById('live-badge');
+        this.isLive = false;
+
+        this.pipBtn = document.getElementById('pip-webcam-mini');
+        this.closeCamBtn = document.getElementById('close-webcam-mini');
+
+        // Performance Optimization: Pre-allocate canvases
+        this.offCanvas = document.createElement('canvas');
+        this.offCtx = this.offCanvas.getContext('2d', { willReadFrequently: true });
+        this.pipCanvas = document.createElement('canvas');
+        this.pipCtx = this.pipCanvas.getContext('2d');
+        this.pipVideo = document.createElement('video');
+        this.pipVideo.muted = true;
+        this.pipVideo.playsInline = true;
+
+        // Drag & Resize State
+        this.isDragging = false;
+        this.isResizing = false;
+        this.dragStart = { x: 0, y: 0 };
+        this.camStart = { x: 0, y: 0, w: 0, h: 0 };
+
+        // Cursor Tracking
+        this.mousePos = { x: 0, y: 0 };
+        if (this.videoPreview && this.videoPreview.parentElement) {
+          this.videoPreview.parentElement.addEventListener('mousemove', (e) => {
+            const rect = this.videoPreview.getBoundingClientRect();
+            this.mousePos.x = ((e.clientX - rect.left) / rect.width) * this.canvas.width;
+            this.mousePos.y = ((e.clientY - rect.top) / rect.height) * this.canvas.height;
+          });
+        }
+
+        // High-Performance Audio-Driven Render Loop
+        const dummyAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = dummyAudioCtx.createOscillator();
+        const silentGain = dummyAudioCtx.createGain();
+        silentGain.gain.value = 0; // Pure silence
+        const scriptProcessor = dummyAudioCtx.createScriptProcessor(1024, 1, 1);
+        
+        osc.connect(silentGain);
+        silentGain.connect(scriptProcessor);
+        scriptProcessor.connect(dummyAudioCtx.destination);
+        osc.start();
+
+        scriptProcessor.onaudioprocess = () => {
+          if (this.isRecording) this.drawCompositor();
+          if (document.pictureInPictureElement) this.renderPip();
+        };
+        
+        this.renderClock = dummyAudioCtx;
+
+        this.setupInteractions();
+        this.init();
+      }
+
+      async togglePiP() {
+        try {
+          if (!this.webcamStream || this.camContainer.style.display === 'none') {
+            await this.toggleWebcamSource();
+          }
+
+          if (window.documentPictureInPicture) {
+            if (window.documentPictureInPicture.window) {
+              window.documentPictureInPicture.window.close();
+              return;
+            }
+
+            const pipWindow = await window.documentPictureInPicture.requestWindow({
+              width: 320, height: 180
+            });
+
+            [...document.styleSheets].forEach((styleSheet) => {
+              try {
+                const cssRules = [...styleSheet.cssRules].map((rule) => rule.cssText).join('');
+                const style = pipWindow.document.createElement('style');
+                style.textContent = cssRules;
+                pipWindow.document.head.appendChild(style);
+              } catch (e) {}
+            });
+
+            pipWindow.document.body.appendChild(this.camContainer);
+            this.camContainer.style.width = '100%';
+            this.camContainer.style.height = '100%';
+            this.camContainer.style.position = 'fixed';
+            this.camContainer.style.inset = '0';
+            this.camContainer.style.margin = '0';
+
+            pipWindow.addEventListener('pagehide', () => {
+              document.querySelector('.preview-container').appendChild(this.camContainer);
+              this.camContainer.style.width = '200px';
+              this.camContainer.style.height = 'auto';
+              this.camContainer.style.position = 'absolute';
+              this.camContainer.style.inset = 'auto';
+              this.camContainer.style.bottom = '20px';
+              this.camContainer.style.right = '20px';
+            });
+            return;
+          }
+
+          if (document.pictureInPictureElement) {
+            await document.exitPictureInPicture();
+          } else {
+            this.pipCanvas.width = 640;
+            this.pipCanvas.height = 360;
+            this.renderPip(); 
+            this.pipVideo.srcObject = this.pipCanvas.captureStream(30);
+            await this.pipVideo.play();
+            await this.pipVideo.requestPictureInPicture();
+          }
+        } catch (err) {
+          console.error("PiP Error:", err);
+        }
+      }
+
+      renderPip() {
+        if (!document.pictureInPictureElement && !this.isRecording) return;
+        const w = this.pipCanvas.width;
+        const h = this.pipCanvas.height;
+        this.pipCtx.clearRect(0, 0, w, h);
+        this.pipCtx.save();
+        if (this.shapeCircle.classList.contains('active')) {
+          this.pipCtx.beginPath();
+          this.pipCtx.arc(w/2, h/2, Math.min(w,h)/2, 0, Math.PI * 2);
+          this.pipCtx.clip();
+        }
+        if (this.camFilter && this.camFilter.value !== 'none') {
+          this.pipCtx.filter = this.getFilterCSS(this.camFilter.value);
+        }
+        this.pipCtx.drawImage(this.webcamPreview, 0, 0, w, h);
+        this.pipCtx.restore();
+      }
+
+      getFilterCSS(filter) {
+        switch(filter) {
+          case 'grayscale': return 'grayscale(100%)';
+          case 'sepia': return 'sepia(100%)';
+          case 'brightness': return 'brightness(150%)';
+          case 'blur': return 'blur(5px)';
+          case 'face-enhance': return 'brightness(110%) contrast(110%) saturate(110%) blur(0.5px)';
+          default: return 'none';
+        }
+      }
+
+      setupInteractions() {
+        const container = this.camContainer;
+        const handle = container.querySelector('.resize-handle');
+
+        container.addEventListener('mousedown', (e) => {
+          if (e.target === handle || e.target.closest('.cam-actions')) return;
+          this.isDragging = true;
+          this.dragStart = { x: e.clientX, y: e.clientY };
+          this.camStart = { x: container.offsetLeft, y: container.offsetTop };
+          e.preventDefault();
+        });
+
+        handle.addEventListener('mousedown', (e) => {
+          this.isResizing = true;
+          this.dragStart = { x: e.clientX, y: e.clientY };
+          this.camStart = { w: container.offsetWidth, h: container.offsetHeight };
+          e.preventDefault();
+          e.stopPropagation();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (this.isDragging) {
+            const dx = e.clientX - this.dragStart.x;
+            const dy = e.clientY - this.dragStart.y;
+            container.style.left = `${this.camStart.x + dx}px`;
+            container.style.top = `${this.camStart.y + dy}px`;
+            container.style.bottom = 'auto';
+            container.style.right = 'auto';
+          }
+          if (this.isResizing) {
+            const dx = e.clientX - this.dragStart.x;
+            const newW = Math.max(100, this.camStart.w + dx);
+            container.style.width = `${newW}px`;
+          }
+        });
+
+        window.addEventListener('mouseup', () => {
+          this.isDragging = false;
+          this.isResizing = false;
+        });
+      }
+
+      init() {
+        this.startBtn.addEventListener('click', () => this.startRecording());
+        this.stopBtn.addEventListener('click', () => this.stopRecording());
+        this.webcamToggle.addEventListener('click', () => this.toggleWebcamSource());
+        this.screenToggle.addEventListener('click', () => this.setupPreview());
+        this.audioToggle.addEventListener('click', () => {
+          this.audioToggle.classList.toggle('active');
+        });
+
+        if (this.pipBtn) this.pipBtn.addEventListener('click', () => this.togglePiP());
+        if (this.closeCamBtn) this.closeCamBtn.addEventListener('click', () => this.toggleWebcamSource());
+
+        if (this.camFilter) this.camFilter.addEventListener('change', () => this.applyWebcamStyles());
+        if (this.camOpacity) this.camOpacity.addEventListener('input', () => this.applyWebcamStyles());
+        if (this.camSize) this.camSize.addEventListener('change', () => this.applyWebcamStyles());
+        
+        if (this.shapeSquare) {
+          this.shapeSquare.addEventListener('click', () => {
+            this.shapeSquare.classList.add('active');
+            if (this.shapeCircle) this.shapeCircle.classList.remove('active');
+            this.applyWebcamStyles();
+          });
+        }
+
+        if (this.shapeCircle) {
+          this.shapeCircle.addEventListener('click', () => {
+            this.shapeCircle.classList.add('active');
+            if (this.shapeSquare) this.shapeSquare.classList.remove('active');
+            this.applyWebcamStyles();
+          });
+        }
+
+        Object.keys(this.posBtns).forEach(pos => {
+          const btn = this.posBtns[pos];
+          if (btn) {
+            btn.addEventListener('click', () => {
+              Object.values(this.posBtns).forEach(b => b && b.classList.remove('active'));
+              btn.classList.add('active');
+              this.applyWebcamStyles();
+            });
+          }
+        });
+        
+        this.navButtons = {
+          record: document.getElementById('nav-record'),
+          library: document.getElementById('nav-library'),
+          settings: document.getElementById('nav-settings')
+        };
+        this.sections = {
+          record: document.getElementById('record-section'),
+          library: document.getElementById('library-section'),
+          settings: document.getElementById('settings-section')
+        };
+        Object.keys(this.navButtons).forEach(key => {
+          const btn = this.navButtons[key];
+          if (btn) btn.addEventListener('click', () => this.switchTab(key));
+        });
+
+        if (this.themeSelect) this.themeSelect.addEventListener('change', () => this.toggleTheme());
+        
+        if (this.liveBtn) this.liveBtn.addEventListener('click', () => this.liveModal.classList.remove('hidden'));
+        if (this.closeLiveModal) this.closeLiveModal.addEventListener('click', () => this.liveModal.classList.add('hidden'));
+        if (this.confirmLive) this.confirmLive.addEventListener('click', () => this.toggleLive());
+        
+        document.querySelectorAll('.platform-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const streamUrl = document.getElementById('stream-url');
+            if (streamUrl) streamUrl.value = btn.getAttribute('data-url');
+          });
+        });
+
+        // Wake up the rendering clock when user interacts
+        document.body.addEventListener('click', () => {
+          if (this.renderClock && this.renderClock.state === 'suspended') {
+            this.renderClock.resume();
+          }
+        }, { once: true });
+
+        // Auto-setup preview removed to prevent startup crash
+      }
+
+      toggleLive() {
+        const urlInput = document.getElementById('stream-url');
+        const keyInput = document.getElementById('stream-key');
+        const errorMsg = document.getElementById('stream-error');
+        if (this.isLive) {
+          this.isLive = false;
+          this.liveBadge.classList.add('hidden');
+          this.liveBtn.innerHTML = '<span class="live-pulse"></span> Go Live';
+          this.liveBtn.style.background = 'linear-gradient(135deg, #ef4444, #b91c1c)';
+          return;
+        }
+        const url = urlInput.value.trim();
+        const key = keyInput.value.trim();
+        if (!url.startsWith('rtmp') || key.length < 10) {
+          errorMsg.classList.remove('hidden');
+          return;
+        }
+        errorMsg.classList.add('hidden');
+        this.isLive = true;
+        this.liveModal.classList.add('hidden');
+        this.liveBadge.classList.remove('hidden');
+        this.liveBtn.innerHTML = '<span class="live-pulse"></span> Stop Stream';
+        this.liveBtn.style.background = 'linear-gradient(135deg, #4b5563, #1f2937)';
+      }
+
+      toggleTheme() {
+        if (!this.themeSelect) return;
+        const isDark = this.themeSelect.value === 'dark';
+        document.body.classList.toggle('dark-theme', isDark);
+      }
+
+      switchTab(tabKey) {
+        Object.keys(this.navButtons).forEach(key => {
+          const btn = this.navButtons[key];
+          if (btn) btn.classList.toggle('active', key === tabKey);
+        });
+        Object.keys(this.sections).forEach(key => {
+          const section = this.sections[key];
+          if (section) section.classList.toggle('hidden', key !== tabKey);
+        });
+        if (tabKey === 'record') this.setupPreview();
+      }
+
+      applyWebcamStyles() {
+        if (!this.camContainer) return;
+        const isPip = this.camContainer.classList.contains('pip-mode');
+        this.camContainer.className = 'cam-overlay-container';
+        if (isPip) this.camContainer.classList.add('pip-mode');
+        
+        if (this.webcamPreview) this.webcamPreview.className = '';
+        
+        if (this.camSize) this.camContainer.classList.add(this.camSize.value);
+        if (this.camOpacity) this.camContainer.style.opacity = this.camOpacity.value / 100;
+        if (this.shapeCircle && this.shapeCircle.classList.contains('active')) this.camContainer.classList.add('circle');
+        
+        if (this.camFilter && this.camFilter.value !== 'none' && this.webcamPreview) {
+          this.webcamPreview.classList.add(`filter-${this.camFilter.value}`);
+        }
+
+        if (this.posBtns) {
+          const activePos = Object.keys(this.posBtns).find(pos => this.posBtns[pos] && this.posBtns[pos].classList.contains('active'));
+          if (activePos) {
+            this.camContainer.classList.add(activePos);
+          }
+        }
+      }
+
+      async setupPreview() {
+        try {
+          if (this.stream) {
+            this.stream.getTracks().forEach(track => track.stop());
+          }
+          if (navigator.mediaDevices.getDisplayMedia) {
+            try {
+              this.stream = await navigator.mediaDevices.getDisplayMedia({ 
+                video: { cursor: "always", frameRate: 60 }, 
+                audio: true 
+              });
+            } catch (err) {
+              console.warn("Screen recording failed, falling back to camera:", err);
+              this.stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "user" },
+                audio: true
+              });
+            }
+          } else {
+            console.warn("Screen recording not supported, falling back to camera.");
+            this.stream = await navigator.mediaDevices.getUserMedia({
+              video: { facingMode: "user" },
+              audio: true
+            });
+          }
+          this.videoPreview.srcObject = this.stream;
+          this.screenToggle.classList.add('active');
+          this.stream.getVideoTracks()[0].onended = () => {
+            this.screenToggle.classList.remove('active');
+            if (this.isRecording) this.stopRecording();
+          };
+        } catch (err) { 
+          console.error("Error setting up preview:", err); 
+          this.screenToggle.classList.remove('active');
+        }
+      }
+
+      async toggleWebcamSource() {
+        const isActive = this.webcamToggle.classList.toggle('active');
+        if (isActive) {
+          if (!this.webcamStream) {
+            try {
+              this.webcamStream = await navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 }, audio: false });
+              this.webcamPreview.srcObject = this.webcamStream;
+            } catch (err) { this.webcamToggle.classList.remove('active'); return; }
+          }
+          this.camContainer.style.display = 'block';
+          this.applyWebcamStyles();
+        } else { this.camContainer.style.display = 'none'; }
+      }
+
+      async startRecording() {
+        if (this.isRecording) return;
+        
+        if (!this.audioCtx) {
+          this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (this.audioCtx.state === 'suspended') {
+          await this.audioCtx.resume();
+        }
+
+        if (!this.stream || !this.stream.active) {
+          await this.setupPreview();
+        }
+        if (!this.stream) return;
+        
+        this.countdownOverlay.classList.remove('hidden');
+        this.countdownOverlay.classList.add('active');
+        for (let i = 3; i > 0; i--) {
+          this.countdownNumber.innerText = i;
+          await new Promise(r => setTimeout(r, 1000));
+        }
+        this.countdownOverlay.classList.remove('active');
+        setTimeout(() => this.countdownOverlay.classList.add('hidden'), 300);
+        
+        this.recordedChunks = [];
+        this.audioDest = this.audioCtx.createMediaStreamDestination();
+        const systemAudioTracks = this.stream.getAudioTracks();
+        if (systemAudioTracks.length > 0) {
+          const systemSource = this.audioCtx.createMediaStreamSource(new MediaStream([systemAudioTracks[0]]));
+          systemSource.connect(this.audioDest);
+        }
+        if (this.audioToggle.classList.contains('active')) {
+          try {
+            this.micStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
+            const micSource = this.audioCtx.createMediaStreamSource(this.micStream);
+            const gainNode = this.audioCtx.createGain();
+            gainNode.gain.value = 3.0;
+            micSource.connect(gainNode);
+            gainNode.connect(this.audioDest);
+          } catch (err) { console.error("Mic error:", err); }
+        }
+        const videoTrack = this.stream.getVideoTracks()[0];
+        const settings = videoTrack.getSettings();
+        this.canvas.width = settings.width || 1920;
+        this.canvas.height = settings.height || 1080;
+        this.isRecording = true;
+        const canvasStream = this.canvas.captureStream(60);
+        const processedAudioTracks = this.audioDest.stream.getAudioTracks();
+        if (processedAudioTracks.length > 0) canvasStream.addTrack(processedAudioTracks[0]);
+        
+        const mimeType = MediaRecorder.isTypeSupported('video/webm;codecs=vp8,opus') 
+          ? 'video/webm;codecs=vp8,opus' 
+          : 'video/webm';
+          
+        this.mediaRecorder = new MediaRecorder(canvasStream, { mimeType });
+        this.mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) this.recordedChunks.push(e.data); };
+        this.mediaRecorder.onstop = () => this.saveRecording();
+        this.mediaRecorder.start(1000);
+        this.startTime = Date.now();
+        this.updateUIStatus(true);
+        this.startTimer();
+      }
+
+      drawCompositor() {
+        if (!this.isRecording) return;
+        this.ctx.drawImage(this.videoPreview, 0, 0, this.canvas.width, this.canvas.height);
+        
+        if (this.webcamStream && this.camContainer.style.display !== 'none') {
+           const rect = this.camContainer;
+           const parentRect = this.videoPreview.parentElement;
+           const xRatio = rect.offsetLeft / parentRect.offsetWidth;
+           const yRatio = rect.offsetTop / parentRect.offsetHeight;
+           const wRatio = rect.offsetWidth / parentRect.offsetWidth;
+           const targetW = wRatio * this.canvas.width;
+           const targetH = targetW * (9/16);
+           const targetX = xRatio * this.canvas.width;
+           const targetY = yRatio * this.canvas.height;
+
+           this.ctx.save();
+           
+           if (this.shapeCircle.classList.contains('active')) {
+             this.ctx.beginPath();
+             const centerX = targetX + targetW / 2;
+             const centerY = targetY + targetH / 2;
+             const radius = Math.min(targetW, targetH) / 2;
+             this.ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+             this.ctx.clip();
+           }
+
+           // Handle Filters & Rendering
+           if (this.camFilter && this.camFilter.value === 'chroma') {
+             this.offCanvas.width = this.webcamPreview.videoWidth;
+             this.offCanvas.height = this.webcamPreview.videoHeight;
+             this.offCtx.drawImage(this.webcamPreview, 0, 0);
+             const frame = this.offCtx.getImageData(0, 0, this.offCanvas.width, this.offCanvas.height);
+             const data = frame.data;
+             for (let i = 0; i < data.length; i += 4) {
+               let r = data[i], g = data[i+1], b = data[i+2];
+               if (g > 100 && g > r * 1.2 && g > b * 1.2) data[i + 3] = 0;
+             }
+             this.offCtx.putImageData(frame, 0, 0);
+             this.ctx.globalAlpha = this.camOpacity ? this.camOpacity.value / 100 : 1.0;
+             this.ctx.drawImage(this.offCanvas, targetX, targetY, targetW, targetH);
+           } else {
+             if (this.camFilter && this.camFilter.value !== 'none') {
+               this.ctx.filter = this.getFilterCSS(this.camFilter.value);
+             }
+             this.ctx.globalAlpha = this.camOpacity ? this.camOpacity.value / 100 : 1.0;
+             this.ctx.drawImage(this.webcamPreview, targetX, targetY, targetW, targetH);
+           }
+           
+           this.ctx.restore();
+           this.ctx.globalAlpha = 1.0;
+           this.ctx.filter = 'none';
+        }
+        
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.arc(this.mousePos.x, this.mousePos.y, 25, 0, Math.PI * 2);
+        this.ctx.strokeStyle = 'rgba(255, 255, 0, 0.6)';
+        this.ctx.lineWidth = 4;
+        this.ctx.stroke();
+        this.ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
+        this.ctx.fill();
+        this.ctx.restore();
+      }
+
+      stopRecording() {
+        if (!this.isRecording) return;
+        this.mediaRecorder.stop();
+        this.isRecording = false;
+        this.updateUIStatus(false);
+        this.stopTimer();
+      }
+
+      updateUIStatus(recording) {
+        this.startBtn.innerText = recording ? "Recording..." : "Start Recording";
+        this.startBtn.disabled = recording;
+        this.statusContainer.classList.toggle('recording', recording);
+        this.statusText.innerText = recording ? "Recording Live" : "Ready to record";
+        this.floatingControls.classList.toggle('hidden', !recording);
+      }
+
+      startTimer() {
+        this.timerInterval = setInterval(() => {
+          const elapsed = Date.now() - this.startTime;
+          const s = Math.floor((elapsed / 1000) % 60).toString().padStart(2, '0');
+          const m = Math.floor((elapsed / 60000) % 60).toString().padStart(2, '0');
+          const h = Math.floor(elapsed / 3600000).toString().padStart(2, '0');
+          this.timerDisplay.innerText = `${h}:${m}:${s}`;
+        }, 1000);
+      }
+
+      stopTimer() {
+        clearInterval(this.timerInterval);
+        this.timerDisplay.innerText = "00:00:00";
+      }
+
+      saveRecording() {
+        const blob = new Blob(this.recordedChunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        this.addToLibrary(url);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Kharkoo_Rec_${new Date().getTime()}.webm`;
+        a.click();
+      }
+
+      addToLibrary(url) {
+        const grid = document.getElementById('recording-grid');
+        const empty = grid.querySelector('.empty-state');
+        if (empty) empty.remove();
+        const item = document.createElement('div');
+        item.className = 'recording-card';
+        item.innerHTML = `
+          <div class="card-preview"><video src="${url}" muted></video></div>
+          <div class="card-info">
+            <span class="card-title">Recording ${new Date().toLocaleTimeString()}</span>
+            <span class="card-meta">WebM</span>
+          </div>
+        `;
+        grid.prepend(item);
+      }
+    }
+    window.addEventListener('DOMContentLoaded', () => { new KharkooRecorder(); });
+  </script>
+</body>
+
+</html>
